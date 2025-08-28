@@ -1,0 +1,1638 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Desa Sedengan Mijen - Website Resmi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .hero-bg {
+            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 50%, #60a5fa 100%);
+        }
+        .card-hover {
+            transition: all 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+        }
+        .navbar-scroll {
+            transition: all 0.3s ease;
+        }
+        .fade-in {
+            animation: fadeIn 0.6s ease-in;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .admin-tab-btn.active {
+            color: #2563eb;
+            border-bottom-color: #2563eb;
+        }
+        .notification-badge {
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .page-transition {
+            transition: all 0.3s ease;
+        }
+        .image-upload-area {
+            transition: all 0.3s ease;
+        }
+        .image-upload-area:hover {
+            border-color: #3b82f6;
+            background-color: #f8fafc;
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav id="navbar" class="bg-white shadow-lg fixed w-full top-0 z-40 navbar-scroll">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="flex-shrink-0 flex items-center">
+                        <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center mr-3">
+                            <span class="text-white font-bold text-lg">🏘️</span>
+                        </div>
+                        <span class="font-bold text-xl text-gray-800">Desa Sedengan Mijen</span>
+                    </div>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-4">
+                        <a href="#beranda" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Beranda</a>
+                        <a href="#profil" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Profil</a>
+                        <a href="#layanan" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Layanan</a>
+                        <a href="#berita" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Berita</a>
+                        <button onclick="showAllNewsPage()" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Semua Berita</button>
+                        <a href="#kontak" class="nav-link text-gray-700 hover:text-blue-600 px-3 py-2 rounded-md text-sm font-medium transition-colors">Kontak</a>
+                        <button onclick="showAdminLogin()" class="relative bg-blue-600 hover:bg-blue-700 text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                            Admin
+                            <span id="message-badge" class="absolute -top-2 -right-2 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center notification-badge hidden">0</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="md:hidden">
+                    <button id="mobile-menu-btn" class="text-gray-700 hover:text-blue-600 focus:outline-none">
+                        <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile menu -->
+        <div id="mobile-menu" class="md:hidden hidden bg-white border-t">
+            <div class="px-2 pt-2 pb-3 space-y-1">
+                <a href="#beranda" class="block px-3 py-2 text-gray-700 hover:text-blue-600">Beranda</a>
+                <a href="#profil" class="block px-3 py-2 text-gray-700 hover:text-blue-600">Profil</a>
+                <a href="#layanan" class="block px-3 py-2 text-gray-700 hover:text-blue-600">Layanan</a>
+                <a href="#berita" class="block px-3 py-2 text-gray-700 hover:text-blue-600">Berita</a>
+                <button onclick="showAllNewsPage()" class="block w-full text-left px-3 py-2 text-gray-700 hover:text-blue-600">Semua Berita</button>
+                <a href="#kontak" class="block px-3 py-2 text-gray-700 hover:text-blue-600">Kontak</a>
+                <button onclick="showAdminLogin()" class="block w-full text-left px-3 py-2 text-blue-600 hover:text-blue-800">Admin</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- All News Page -->
+    <div id="all-news-page" class="fixed inset-0 bg-white z-30 hidden page-transition">
+        <div class="pt-16 min-h-screen">
+            <!-- Header -->
+            <div class="bg-gradient-to-r from-blue-600 to-blue-800 text-white py-12">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <h1 class="text-3xl md:text-4xl font-bold mb-2">Semua Berita</h1>
+                            <p class="text-blue-100">Informasi terkini dari Desa Sedengan Mijen</p>
+                        </div>
+                        <button onclick="hideAllNewsPage()" class="bg-white bg-opacity-20 hover:bg-opacity-30 text-white px-4 py-2 rounded-lg transition-colors">
+                            ← Kembali
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- News Filter -->
+            <div class="bg-white border-b py-4">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex flex-wrap gap-2">
+                        <button onclick="filterNewsByCategory('all')" class="news-filter-btn bg-blue-100 text-blue-800 px-4 py-2 rounded-full text-sm font-medium active">
+                            Semua
+                        </button>
+                        <button onclick="filterNewsByCategory('pembangunan')" class="news-filter-btn bg-gray-100 text-gray-800 px-4 py-2 rounded-full text-sm font-medium">
+                            🏗️ Pembangunan
+                        </button>
+                        <button onclick="filterNewsByCategory('pertanian')" class="news-filter-btn bg-gray-100 text-gray-800 px-4 py-2 rounded-full text-sm font-medium">
+                            🌾 Pertanian
+                        </button>
+                        <button onclick="filterNewsByCategory('budaya')" class="news-filter-btn bg-gray-100 text-gray-800 px-4 py-2 rounded-full text-sm font-medium">
+                            🎉 Budaya
+                        </button>
+                        <button onclick="filterNewsByCategory('kesehatan')" class="news-filter-btn bg-gray-100 text-gray-800 px-4 py-2 rounded-full text-sm font-medium">
+                            🏥 Kesehatan
+                        </button>
+                        <button onclick="filterNewsByCategory('pendidikan')" class="news-filter-btn bg-gray-100 text-gray-800 px-4 py-2 rounded-full text-sm font-medium">
+                            🎓 Pendidikan
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- News Content -->
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="all-news-container">
+                    <!-- All news will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- News Detail Modal -->
+    <div id="news-detail-modal" class="fixed inset-0 bg-gray-900 bg-opacity-50 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-xl shadow-2xl w-full max-w-4xl max-h-screen overflow-y-auto">
+                <div id="news-detail-content">
+                    <!-- News detail will be populated here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="admin-panel" class="fixed inset-0 bg-gray-900 bg-opacity-50 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-xl shadow-2xl w-full max-w-6xl max-h-screen overflow-y-auto">
+                <!-- Admin Header -->
+                <div class="bg-blue-600 text-white p-6 rounded-t-xl">
+                    <div class="flex justify-between items-center">
+                        <h2 class="text-2xl font-bold">Admin Panel - Desa Sedengan Mijen</h2>
+                        <div class="flex items-center gap-4">
+                            <span class="text-sm">Selamat datang, Admin!</span>
+                            <button onclick="logout()" class="bg-red-500 hover:bg-red-600 px-3 py-1 rounded text-sm">Logout</button>
+                            <button onclick="closeAdminPanel()" class="text-white hover:text-gray-200 text-2xl">&times;</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Admin Navigation -->
+                <div class="border-b">
+                    <nav class="flex">
+                        <button onclick="showAdminTab('news')" class="admin-tab-btn px-6 py-3 font-medium text-blue-600 border-b-2 border-blue-600 active">
+                            📰 Kelola Berita
+                        </button>
+                        <button onclick="showAdminTab('messages')" class="admin-tab-btn px-6 py-3 font-medium text-gray-500 hover:text-blue-600 relative">
+                            💬 Pesan Masuk
+                            <span id="admin-message-badge" class="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center notification-badge hidden">0</span>
+                        </button>
+                        <button onclick="showAdminTab('stats')" class="admin-tab-btn px-6 py-3 font-medium text-gray-500 hover:text-blue-600">
+                            📊 Statistik
+                        </button>
+                    </nav>
+                </div>
+
+                <!-- News Management Tab -->
+                <div id="admin-news-tab" class="admin-tab-content p-6">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-xl font-bold text-gray-800">Kelola Berita</h3>
+                        <button onclick="showNewsForm()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg flex items-center gap-2">
+                            <span>➕</span> Tambah Berita
+                        </button>
+                    </div>
+
+                    <!-- News Form -->
+                    <div id="news-form" class="bg-gray-50 p-6 rounded-lg mb-6 hidden">
+                        <h4 class="text-lg font-semibold mb-4" id="news-form-title">Tambah Berita Baru</h4>
+                        <form id="news-form-element">
+                            <input type="hidden" id="news-id">
+                            <input type="hidden" id="news-image-data">
+                            <div class="grid md:grid-cols-2 gap-4 mb-4">
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Judul Berita *</label>
+                                    <input type="text" id="news-title" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" required>
+                                </div>
+                                <div>
+                                    <label class="block text-sm font-medium text-gray-700 mb-2">Kategori *</label>
+                                    <select id="news-category" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                        <option value="pembangunan">🏗️ Pembangunan</option>
+                                        <option value="pertanian">🌾 Pertanian</option>
+                                        <option value="budaya">🎉 Budaya</option>
+                                        <option value="kesehatan">🏥 Kesehatan</option>
+                                        <option value="pendidikan">🎓 Pendidikan</option>
+                                        <option value="ekonomi">💰 Ekonomi</option>
+                                        <option value="lingkungan">🌱 Lingkungan</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Foto Berita</label>
+                                <div class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center image-upload-area">
+                                    <input type="file" id="news-image" accept="image/*" class="hidden" onchange="handleImageUpload(event)">
+                                    <div id="image-preview" class="hidden mb-4">
+                                        <img id="preview-img" class="max-w-full h-48 object-cover rounded-lg mx-auto mb-2">
+                                        <button type="button" onclick="removeImage()" class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm">
+                                            🗑️ Hapus Foto
+                                        </button>
+                                    </div>
+                                    <div id="upload-placeholder">
+                                        <div class="text-4xl text-gray-400 mb-2">📷</div>
+                                        <p class="text-gray-600 mb-2">Klik untuk upload foto berita</p>
+                                        <button type="button" onclick="document.getElementById('news-image').click()" class="bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg">
+                                            Pilih Foto
+                                        </button>
+                                        <p class="text-xs text-gray-500 mt-2">Format: JPG, PNG, GIF (Max: 5MB)</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Konten Berita *</label>
+                                <textarea id="news-content" rows="5" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Tulis konten berita di sini..." required></textarea>
+                            </div>
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                                <select id="news-status" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500">
+                                    <option value="published">📢 Dipublikasikan</option>
+                                    <option value="draft">📝 Draft</option>
+                                </select>
+                            </div>
+                            <div class="flex gap-2">
+                                <button type="submit" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg flex items-center gap-2">
+                                    <span>💾</span> Simpan
+                                </button>
+                                <button type="button" onclick="hideNewsForm()" class="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">
+                                    Batal
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- News List -->
+                    <div class="space-y-4" id="admin-news-list">
+                        <!-- News items will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Messages Tab -->
+                <div id="admin-messages-tab" class="admin-tab-content p-6 hidden">
+                    <div class="flex justify-between items-center mb-6">
+                        <h3 class="text-xl font-bold text-gray-800">Pesan Masuk</h3>
+                        <div class="flex gap-2">
+                            <button onclick="markAllAsRead()" class="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm flex items-center gap-2">
+                                <span>✅</span> Tandai Semua Dibaca
+                            </button>
+                            <button onclick="clearAllMessages()" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-sm flex items-center gap-2">
+                                <span>🗑️</span> Hapus Semua
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Message Filter -->
+                    <div class="mb-4 flex gap-2">
+                        <button onclick="filterMessages('all')" class="message-filter-btn bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-sm active">
+                            Semua
+                        </button>
+                        <button onclick="filterMessages('unread')" class="message-filter-btn bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">
+                            Belum Dibaca
+                        </button>
+                        <button onclick="filterMessages('read')" class="message-filter-btn bg-gray-100 text-gray-800 px-3 py-1 rounded-full text-sm">
+                            Sudah Dibaca
+                        </button>
+                    </div>
+
+                    <!-- Messages List -->
+                    <div class="space-y-4" id="admin-messages-list">
+                        <!-- Messages will be populated here -->
+                    </div>
+                </div>
+
+                <!-- Statistics Tab -->
+                <div id="admin-stats-tab" class="admin-tab-content p-6 hidden">
+                    <h3 class="text-xl font-bold text-gray-800 mb-6">Statistik Website</h3>
+                    <div class="grid md:grid-cols-3 gap-6">
+                        <div class="bg-blue-50 p-6 rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-blue-600 text-sm font-medium">Total Berita</p>
+                                    <p class="text-2xl font-bold text-blue-800" id="stats-news">0</p>
+                                </div>
+                                <div class="text-blue-500 text-3xl">📰</div>
+                            </div>
+                        </div>
+                        <div class="bg-green-50 p-6 rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-green-600 text-sm font-medium">Total Pesan</p>
+                                    <p class="text-2xl font-bold text-green-800" id="stats-messages">0</p>
+                                </div>
+                                <div class="text-green-500 text-3xl">💬</div>
+                            </div>
+                        </div>
+                        <div class="bg-orange-50 p-6 rounded-lg">
+                            <div class="flex items-center justify-between">
+                                <div>
+                                    <p class="text-orange-600 text-sm font-medium">Pesan Belum Dibaca</p>
+                                    <p class="text-2xl font-bold text-orange-800" id="stats-unread">0</p>
+                                </div>
+                                <div class="text-orange-500 text-3xl">🔔</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Recent Activity -->
+                    <div class="mt-8">
+                        <h4 class="text-lg font-semibold text-gray-800 mb-4">Aktivitas Terbaru</h4>
+                        <div class="bg-white border rounded-lg" id="recent-activity">
+                            <!-- Activity will be populated here -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Login Modal -->
+    <div id="admin-login" class="fixed inset-0 bg-gray-900 bg-opacity-50 z-50 hidden">
+        <div class="flex items-center justify-center min-h-screen p-4">
+            <div class="bg-white rounded-xl shadow-2xl w-full max-w-md">
+                <div class="p-6">
+                    <div class="text-center mb-6">
+                        <div class="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                            <span class="text-blue-600 text-2xl">🔐</span>
+                        </div>
+                        <h2 class="text-2xl font-bold text-gray-800">Login Admin</h2>
+                        <p class="text-gray-600 text-sm mt-2">Masuk ke panel administrasi</p>
+                    </div>
+                    <form id="admin-login-form">
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Username</label>
+                            <input type="text" id="admin-username" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Masukkan username" required>
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                            <input type="password" id="admin-password" class="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500" placeholder="Masukkan password" required>
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 rounded-lg transition-colors">
+                            🚀 Login
+                        </button>
+                    </form>
+                    <div class="mt-4 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                        <p class="text-sm text-blue-800">
+                            <strong>🔑 Demo Login:</strong><br>
+                            Username: <code class="bg-blue-100 px-1 rounded">admin</code><br>
+                            Password: <code class="bg-blue-100 px-1 rounded">admin123</code>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="beranda" class="hero-bg pt-16 pb-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20">
+            <div class="text-center fade-in">
+                <h1 class="text-4xl md:text-6xl font-bold text-white mb-6">
+                    Selamat Datang di<br>
+                    <span class="text-yellow-300">Desa Sedengan Mijen</span>
+                </h1>
+                <p class="text-xl md:text-2xl text-blue-100 mb-8 max-w-3xl mx-auto">
+                    Desa yang maju, sejahtera, dan berdaya saing dengan pelayanan terbaik untuk masyarakat
+                </p>
+                <div class="flex flex-col sm:flex-row gap-4 justify-center">
+                    <button onclick="scrollToSection('profil')" class="bg-yellow-400 hover:bg-yellow-500 text-blue-900 font-bold py-3 px-8 rounded-lg transition-colors">
+                        Jelajahi Desa
+                    </button>
+                    <button onclick="scrollToSection('layanan')" class="bg-transparent border-2 border-white text-white hover:bg-white hover:text-blue-600 font-bold py-3 px-8 rounded-lg transition-colors">
+                        Layanan Publik
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="bg-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
+                <div class="text-center">
+                    <div class="text-3xl md:text-4xl font-bold text-blue-600 mb-2">2,450</div>
+                    <div class="text-gray-600">Jumlah Penduduk</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl md:text-4xl font-bold text-green-600 mb-2">650</div>
+                    <div class="text-gray-600">Kepala Keluarga</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl md:text-4xl font-bold text-purple-600 mb-2">8</div>
+                    <div class="text-gray-600">RT/RW</div>
+                </div>
+                <div class="text-center">
+                    <div class="text-3xl md:text-4xl font-bold text-orange-600 mb-2">15</div>
+                    <div class="text-gray-600">Layanan Publik</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profile Section -->
+    <section id="profil" class="bg-gray-50 py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Profil Desa</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Mengenal lebih dekat Desa Sedengan Mijen, sejarah, visi misi, dan potensi yang dimiliki
+                </p>
+            </div>
+            
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Tentang Desa Sedengan Mijen</h3>
+                    <p class="text-gray-600 mb-6 leading-relaxed">
+                        Desa Sedengan Mijen merupakan salah satu desa yang terletak di wilayah Kecamatan Mijen, 
+                        dengan luas wilayah sekitar 450 hektar. Desa ini memiliki potensi alam yang indah dan 
+                        masyarakat yang gotong royong dalam membangun desa.
+                    </p>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <div class="w-4 h-4 bg-blue-600 rounded-full mr-3"></div>
+                            <span class="text-gray-700">Luas Wilayah: 450 Hektar</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-4 h-4 bg-green-600 rounded-full mr-3"></div>
+                            <span class="text-gray-700">Ketinggian: 125 mdpl</span>
+                        </div>
+                        <div class="flex items-center">
+                            <div class="w-4 h-4 bg-purple-600 rounded-full mr-3"></div>
+                            <span class="text-gray-700">Kode Pos: 50219</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-lg">
+                    <h4 class="text-xl font-bold text-gray-800 mb-4">Visi & Misi</h4>
+                    <div class="mb-6">
+                        <h5 class="font-semibold text-blue-600 mb-2">Visi:</h5>
+                        <p class="text-gray-600 text-sm">
+                            "Terwujudnya Desa Sedengan Mijen yang maju, sejahtera, dan berdaya saing"
+                        </p>
+                    </div>
+                    <div>
+                        <h5 class="font-semibold text-blue-600 mb-2">Misi:</h5>
+                        <ul class="text-gray-600 text-sm space-y-1">
+                            <li>• Meningkatkan kualitas pelayanan publik</li>
+                            <li>• Mengembangkan potensi ekonomi desa</li>
+                            <li>• Memperkuat gotong royong masyarakat</li>
+                            <li>• Melestarikan budaya dan lingkungan</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="layanan" class="bg-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Layanan Publik</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Berbagai layanan administrasi dan publik yang tersedia untuk masyarakat Desa Sedengan Mijen
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="bg-gradient-to-br from-blue-50 to-blue-100 p-6 rounded-xl card-hover">
+                    <div class="w-12 h-12 bg-blue-600 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white text-xl">📄</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Surat Keterangan</h3>
+                    <p class="text-gray-600 mb-4">Pengurusan berbagai surat keterangan seperti domisili, usaha, dan lainnya</p>
+                    <button class="text-blue-600 font-semibold hover:text-blue-800 transition-colors">Selengkapnya →</button>
+                </div>
+
+                <div class="bg-gradient-to-br from-green-50 to-green-100 p-6 rounded-xl card-hover">
+                    <div class="w-12 h-12 bg-green-600 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white text-xl">👥</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Administrasi Kependudukan</h3>
+                    <p class="text-gray-600 mb-4">Layanan KTP, KK, akta kelahiran, dan administrasi kependudukan lainnya</p>
+                    <button class="text-green-600 font-semibold hover:text-green-800 transition-colors">Selengkapnya →</button>
+                </div>
+
+                <div class="bg-gradient-to-br from-purple-50 to-purple-100 p-6 rounded-xl card-hover">
+                    <div class="w-12 h-12 bg-purple-600 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white text-xl">💼</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Perizinan Usaha</h3>
+                    <p class="text-gray-600 mb-4">Bantuan pengurusan izin usaha mikro, kecil, dan menengah</p>
+                    <button class="text-purple-600 font-semibold hover:text-purple-800 transition-colors">Selengkapnya →</button>
+                </div>
+
+                <div class="bg-gradient-to-br from-orange-50 to-orange-100 p-6 rounded-xl card-hover">
+                    <div class="w-12 h-12 bg-orange-600 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white text-xl">🏥</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Kesehatan</h3>
+                    <p class="text-gray-600 mb-4">Posyandu, puskesmas pembantu, dan program kesehatan masyarakat</p>
+                    <button class="text-orange-600 font-semibold hover:text-orange-800 transition-colors">Selengkapnya →</button>
+                </div>
+
+                <div class="bg-gradient-to-br from-red-50 to-red-100 p-6 rounded-xl card-hover">
+                    <div class="w-12 h-12 bg-red-600 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white text-xl">🎓</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Pendidikan</h3>
+                    <p class="text-gray-600 mb-4">Bantuan beasiswa, program pendidikan, dan fasilitas belajar</p>
+                    <button class="text-red-600 font-semibold hover:text-red-800 transition-colors">Selengkapnya →</button>
+                </div>
+
+                <div class="bg-gradient-to-br from-teal-50 to-teal-100 p-6 rounded-xl card-hover">
+                    <div class="w-12 h-12 bg-teal-600 rounded-lg flex items-center justify-center mb-4">
+                        <span class="text-white text-xl">🌱</span>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-800 mb-3">Pemberdayaan Masyarakat</h3>
+                    <p class="text-gray-600 mb-4">Program UMKM, pelatihan keterampilan, dan pemberdayaan ekonomi</p>
+                    <button class="text-teal-600 font-semibold hover:text-teal-800 transition-colors">Selengkapnya →</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- News Section -->
+    <section id="berita" class="bg-gray-50 py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Berita & Kegiatan</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Informasi terkini tentang kegiatan dan perkembangan di Desa Sedengan Mijen
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8" id="news-container">
+                <!-- News items will be populated here -->
+            </div>
+
+            <div class="text-center mt-12">
+                <button onclick="showAllNewsPage()" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg transition-colors">
+                    Lihat Semua Berita
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="kontak" class="bg-white py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-gray-800 mb-4">Hubungi Kami</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">
+                    Silakan hubungi kami untuk informasi lebih lanjut atau layanan administrasi
+                </p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <div>
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Informasi Kontak</h3>
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4">
+                                <span class="text-blue-600 text-xl">📍</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Alamat</h4>
+                                <p class="text-gray-600">Jl. Raya Sedengan No. 123<br>Desa Sedengan, Kec. Mijen<br>Kota Semarang, Jawa Tengah 50219</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4">
+                                <span class="text-green-600 text-xl">📞</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Telepon</h4>
+                                <p class="text-gray-600">(024) 7612345<br>+62 812-3456-7890</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4">
+                                <span class="text-purple-600 text-xl">✉️</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Email</h4>
+                                <p class="text-gray-600">info@sedengamijen.desa.id<br>pelayanan@sedengamijen.desa.id</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mr-4">
+                                <span class="text-orange-600 text-xl">🕒</span>
+                            </div>
+                            <div>
+                                <h4 class="font-semibold text-gray-800">Jam Pelayanan</h4>
+                                <p class="text-gray-600">Senin - Jumat: 08:00 - 15:00<br>Sabtu: 08:00 - 12:00</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-50 p-8 rounded-xl">
+                    <h3 class="text-2xl font-bold text-gray-800 mb-6">Kirim Pesan</h3>
+                    <form id="contact-form" class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Nama Lengkap *</label>
+                            <input type="text" id="contact-name" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Masukkan nama lengkap" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+                            <input type="email" id="contact-email" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Masukkan email" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Nomor Telepon</label>
+                            <input type="tel" id="contact-phone" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Masukkan nomor telepon">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Subjek *</label>
+                            <select id="contact-subject" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" required>
+                                <option value="">Pilih subjek</option>
+                                <option value="Informasi Layanan">Informasi Layanan</option>
+                                <option value="Pengaduan">Pengaduan</option>
+                                <option value="Saran">Saran</option>
+                                <option value="Kerjasama">Kerjasama</option>
+                                <option value="Lainnya">Lainnya</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Pesan *</label>
+                            <textarea id="contact-message" rows="4" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent" placeholder="Tulis pesan Anda" required></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-colors flex items-center justify-center gap-2">
+                            <span>📤</span> Kirim Pesan
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center mb-4">
+                        <div class="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center mr-3">
+                            <span class="text-white font-bold text-lg">🏘️</span>
+                        </div>
+                        <span class="font-bold text-xl">Desa Sedengan Mijen</span>
+                    </div>
+                    <p class="text-gray-300 mb-4">
+                        Desa yang maju, sejahtera, dan berdaya saing dengan pelayanan terbaik untuk masyarakat.
+                    </p>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Menu Utama</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#beranda" class="hover:text-white transition-colors">Beranda</a></li>
+                        <li><a href="#profil" class="hover:text-white transition-colors">Profil Desa</a></li>
+                        <li><a href="#layanan" class="hover:text-white transition-colors">Layanan Publik</a></li>
+                        <li><a href="#berita" class="hover:text-white transition-colors">Berita</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Layanan</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li><a href="#" class="hover:text-white transition-colors">Surat Keterangan</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Administrasi KTP</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Perizinan Usaha</a></li>
+                        <li><a href="#" class="hover:text-white transition-colors">Bantuan Sosial</a></li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h4 class="font-bold text-lg mb-4">Kontak</h4>
+                    <ul class="space-y-2 text-gray-300">
+                        <li>📍 Jl. Raya Sedengan No. 123</li>
+                        <li>📞 (024) 7612345</li>
+                        <li>✉️ info@sedengamijen.desa.id</li>
+                        <li>🕒 Senin - Jumat: 08:00 - 15:00</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center">
+                <p class="text-gray-300">
+                    © 2024 Desa Sedengan Mijen. Semua hak dilindungi undang-undang.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Data Storage with localStorage
+        let newsData = JSON.parse(localStorage.getItem('newsData')) || [
+            {
+                id: 1,
+                title: 'Pembangunan Jalan Desa Tahap II Dimulai',
+                category: 'pembangunan',
+                content: 'Pembangunan infrastruktur jalan desa memasuki tahap kedua dengan target selesai akhir tahun. Proyek ini akan meningkatkan akses transportasi dan mendukung perekonomian desa. Dengan anggaran sebesar 2,5 miliar rupiah, pembangunan ini meliputi perbaikan jalan sepanjang 5 kilometer yang menghubungkan pusat desa dengan area pertanian. Masyarakat sangat antusias dengan proyek ini karena akan memudahkan akses untuk mengangkut hasil panen.',
+                date: '2024-12-15',
+                status: 'published',
+                image: null
+            },
+            {
+                id: 2,
+                title: 'Panen Raya Padi Organik Sukses Besar',
+                category: 'pertanian',
+                content: 'Petani desa merayakan panen raya padi organik dengan hasil yang memuaskan tahun ini. Produktivitas meningkat 20% dibanding tahun lalu berkat program pendampingan. Program pertanian organik yang dimulai tahun lalu telah membuahkan hasil yang menggembirakan. Dengan menggunakan pupuk kompos dan pestisida alami, kualitas beras yang dihasilkan jauh lebih baik dan memiliki nilai jual yang tinggi di pasar.',
+                date: '2024-12-12',
+                status: 'published',
+                image: null
+            },
+            {
+                id: 3,
+                title: 'Festival Budaya Desa Meriah',
+                category: 'budaya',
+                content: 'Perayaan festival budaya tahunan dengan berbagai pertunjukan seni dan kuliner tradisional. Acara dihadiri ribuan pengunjung dari berbagai daerah. Festival ini menampilkan tarian tradisional, musik gamelan, dan berbagai makanan khas desa. Selain itu, ada juga pameran kerajinan tangan dan produk UMKM lokal yang menarik perhatian wisatawan.',
+                date: '2024-12-10',
+                status: 'published',
+                image: null
+            }
+        ];
+
+        let messagesData = JSON.parse(localStorage.getItem('messagesData')) || [];
+        let isLoggedIn = false;
+        let currentMessageFilter = 'all';
+        let currentNewsFilter = 'all';
+
+        // Category configuration
+        const categoryConfig = {
+            pembangunan: { icon: '🏗️', color: 'blue', name: 'Pembangunan' },
+            pertanian: { icon: '🌾', color: 'green', name: 'Pertanian' },
+            budaya: { icon: '🎉', color: 'purple', name: 'Budaya' },
+            kesehatan: { icon: '🏥', color: 'red', name: 'Kesehatan' },
+            pendidikan: { icon: '🎓', color: 'orange', name: 'Pendidikan' },
+            ekonomi: { icon: '💰', color: 'yellow', name: 'Ekonomi' },
+            lingkungan: { icon: '🌱', color: 'teal', name: 'Lingkungan' }
+        };
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Smooth scrolling
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            const navHeight = document.getElementById('navbar').offsetHeight;
+            const elementPosition = element.offsetTop - navHeight;
+            
+            window.scrollTo({
+                top: elementPosition,
+                behavior: 'smooth'
+            });
+        }
+
+        // Navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                scrollToSection(targetId);
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                navbar.classList.add('shadow-lg');
+            } else {
+                navbar.classList.remove('shadow-lg');
+            }
+        });
+
+        // Image Upload Functions
+        function handleImageUpload(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            // Validate file size (5MB max)
+            if (file.size > 5 * 1024 * 1024) {
+                showNotification('Ukuran file terlalu besar! Maksimal 5MB.', 'error');
+                return;
+            }
+
+            // Validate file type
+            if (!file.type.startsWith('image/')) {
+                showNotification('File harus berupa gambar!', 'error');
+                return;
+            }
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const imageData = e.target.result;
+                document.getElementById('news-image-data').value = imageData;
+                
+                // Show preview
+                const previewImg = document.getElementById('preview-img');
+                previewImg.src = imageData;
+                document.getElementById('image-preview').classList.remove('hidden');
+                document.getElementById('upload-placeholder').classList.add('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function removeImage() {
+            document.getElementById('news-image-data').value = '';
+            document.getElementById('news-image').value = '';
+            document.getElementById('image-preview').classList.add('hidden');
+            document.getElementById('upload-placeholder').classList.remove('hidden');
+        }
+
+        // All News Page Functions
+        function showAllNewsPage() {
+            document.getElementById('all-news-page').classList.remove('hidden');
+            loadAllNews();
+            document.body.style.overflow = 'hidden';
+        }
+
+        function hideAllNewsPage() {
+            document.getElementById('all-news-page').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function loadAllNews() {
+            const container = document.getElementById('all-news-container');
+            container.innerHTML = '';
+            
+            let filteredNews = newsData.filter(news => news.status === 'published');
+            
+            if (currentNewsFilter !== 'all') {
+                filteredNews = filteredNews.filter(news => news.category === currentNewsFilter);
+            }
+            
+            if (filteredNews.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-3 text-center py-12">
+                        <div class="text-6xl mb-4">📰</div>
+                        <p class="text-gray-500 text-lg">Tidak ada berita untuk kategori ini.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            filteredNews.sort((a, b) => new Date(b.date) - new Date(a.date)).forEach(news => {
+                const config = categoryConfig[news.category];
+                const newsElement = document.createElement('article');
+                newsElement.className = 'bg-white rounded-xl shadow-lg overflow-hidden card-hover cursor-pointer';
+                newsElement.onclick = () => showNewsDetail(news.id);
+                
+                const imageHtml = news.image ? 
+                    `<div class="h-48 overflow-hidden">
+                        <img src="${news.image}" alt="${news.title}" class="w-full h-full object-cover">
+                    </div>` :
+                    `<div class="h-48 bg-gradient-to-br from-${config.color}-400 to-${config.color}-600 flex items-center justify-center">
+                        <span class="text-white text-4xl">${config.icon}</span>
+                    </div>`;
+                
+                newsElement.innerHTML = `
+                    ${imageHtml}
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm text-${config.color}-600 font-semibold">${config.name}</span>
+                            <span class="text-sm text-gray-500">${formatDate(news.date)}</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">${news.title}</h3>
+                        <p class="text-gray-600 mb-4 leading-relaxed">${news.content.substring(0, 120)}${news.content.length > 120 ? '...' : ''}</p>
+                        <div class="text-${config.color}-600 font-semibold hover:text-${config.color}-800 transition-colors flex items-center gap-1">
+                            Baca Selengkapnya <span>→</span>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(newsElement);
+            });
+        }
+
+        function filterNewsByCategory(category) {
+            currentNewsFilter = category;
+            
+            // Update filter buttons
+            document.querySelectorAll('.news-filter-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-blue-100', 'text-blue-800');
+                btn.classList.add('bg-gray-100', 'text-gray-800');
+            });
+            
+            event.target.classList.add('active', 'bg-blue-100', 'text-blue-800');
+            event.target.classList.remove('bg-gray-100', 'text-gray-800');
+            
+            loadAllNews();
+        }
+
+        function showNewsDetail(newsId) {
+            const news = newsData.find(n => n.id === newsId);
+            if (!news) return;
+            
+            const config = categoryConfig[news.category];
+            const modal = document.getElementById('news-detail-modal');
+            const content = document.getElementById('news-detail-content');
+            
+            const imageHtml = news.image ? 
+                `<div class="h-64 md:h-80 overflow-hidden">
+                    <img src="${news.image}" alt="${news.title}" class="w-full h-full object-cover">
+                </div>` :
+                `<div class="h-64 md:h-80 bg-gradient-to-br from-${config.color}-400 to-${config.color}-600 flex items-center justify-center">
+                    <span class="text-white text-6xl">${config.icon}</span>
+                </div>`;
+            
+            content.innerHTML = `
+                ${imageHtml}
+                <div class="p-8">
+                    <div class="flex items-center justify-between mb-4">
+                        <span class="bg-${config.color}-100 text-${config.color}-800 px-3 py-1 rounded-full text-sm font-semibold flex items-center gap-1">
+                            ${config.icon} ${config.name}
+                        </span>
+                        <button onclick="closeNewsDetail()" class="text-gray-400 hover:text-gray-600 text-2xl">&times;</button>
+                    </div>
+                    <h1 class="text-3xl font-bold text-gray-800 mb-4">${news.title}</h1>
+                    <div class="flex items-center text-gray-500 text-sm mb-6">
+                        <span class="mr-4">📅 ${formatDate(news.date)}</span>
+                        <span>👁️ Berita Desa</span>
+                    </div>
+                    <div class="prose max-w-none">
+                        <p class="text-gray-700 leading-relaxed text-lg">${news.content}</p>
+                    </div>
+                    <div class="mt-8 pt-6 border-t border-gray-200">
+                        <div class="flex items-center justify-between">
+                            <div class="text-sm text-gray-500">
+                                Dipublikasikan oleh Admin Desa Sedengan Mijen
+                            </div>
+                            <button onclick="closeNewsDetail()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
+                                Tutup
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            modal.classList.remove('hidden');
+        }
+
+        function closeNewsDetail() {
+            document.getElementById('news-detail-modal').classList.add('hidden');
+        }
+
+        // Admin Functions
+        function showAdminLogin() {
+            document.getElementById('admin-login').classList.remove('hidden');
+        }
+
+        function closeAdminLogin() {
+            document.getElementById('admin-login').classList.add('hidden');
+        }
+
+        function showAdminPanel() {
+            document.getElementById('admin-panel').classList.remove('hidden');
+            loadAdminNews();
+            loadAdminMessages();
+            updateStats();
+            loadRecentActivity();
+        }
+
+        function closeAdminPanel() {
+            document.getElementById('admin-panel').classList.add('hidden');
+        }
+
+        function logout() {
+            if (confirm('Apakah Anda yakin ingin logout?')) {
+                isLoggedIn = false;
+                closeAdminPanel();
+                alert('Anda telah logout dari admin panel.');
+            }
+        }
+
+        function showAdminTab(tab) {
+            // Hide all tabs
+            document.querySelectorAll('.admin-tab-content').forEach(content => {
+                content.classList.add('hidden');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.admin-tab-btn').forEach(btn => {
+                btn.classList.remove('active', 'text-blue-600', 'border-blue-600');
+                btn.classList.add('text-gray-500');
+            });
+            
+            // Show selected tab
+            document.getElementById(`admin-${tab}-tab`).classList.remove('hidden');
+            
+            // Add active class to selected button
+            event.target.classList.add('active', 'text-blue-600', 'border-blue-600');
+            event.target.classList.remove('text-gray-500');
+
+            // Load tab-specific data
+            if (tab === 'messages') {
+                loadAdminMessages();
+            } else if (tab === 'stats') {
+                updateStats();
+                loadRecentActivity();
+            }
+        }
+
+        // Admin Login
+        document.getElementById('admin-login-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('admin-username').value;
+            const password = document.getElementById('admin-password').value;
+            
+            if (username === 'admin' && password === 'admin123') {
+                isLoggedIn = true;
+                closeAdminLogin();
+                showAdminPanel();
+                showNotification('Login berhasil! Selamat datang di Admin Panel.', 'success');
+            } else {
+                showNotification('Username atau password salah!', 'error');
+            }
+        });
+
+        // News Management
+        function showNewsForm(newsId = null) {
+            const form = document.getElementById('news-form');
+            const title = document.getElementById('news-form-title');
+            
+            if (newsId) {
+                const news = newsData.find(n => n.id === newsId);
+                title.textContent = 'Edit Berita';
+                document.getElementById('news-id').value = news.id;
+                document.getElementById('news-title').value = news.title;
+                document.getElementById('news-category').value = news.category;
+                document.getElementById('news-content').value = news.content;
+                document.getElementById('news-status').value = news.status;
+                document.getElementById('news-image-data').value = news.image || '';
+                
+                // Show image preview if exists
+                if (news.image) {
+                    document.getElementById('preview-img').src = news.image;
+                    document.getElementById('image-preview').classList.remove('hidden');
+                    document.getElementById('upload-placeholder').classList.add('hidden');
+                } else {
+                    document.getElementById('image-preview').classList.add('hidden');
+                    document.getElementById('upload-placeholder').classList.remove('hidden');
+                }
+            } else {
+                title.textContent = 'Tambah Berita Baru';
+                document.getElementById('news-form-element').reset();
+                document.getElementById('news-id').value = '';
+                document.getElementById('news-image-data').value = '';
+                document.getElementById('news-status').value = 'published';
+                document.getElementById('image-preview').classList.add('hidden');
+                document.getElementById('upload-placeholder').classList.remove('hidden');
+            }
+            
+            form.classList.remove('hidden');
+            document.getElementById('news-title').focus();
+        }
+
+        function hideNewsForm() {
+            document.getElementById('news-form').classList.add('hidden');
+            document.getElementById('news-form-element').reset();
+            removeImage();
+        }
+
+        function deleteNews(newsId) {
+            if (confirm('Apakah Anda yakin ingin menghapus berita ini?')) {
+                newsData = newsData.filter(n => n.id !== newsId);
+                localStorage.setItem('newsData', JSON.stringify(newsData));
+                loadAdminNews();
+                loadPublicNews();
+                updateStats();
+                showNotification('Berita berhasil dihapus!', 'success');
+            }
+        }
+
+        function loadAdminNews() {
+            const container = document.getElementById('admin-news-list');
+            container.innerHTML = '';
+            
+            if (newsData.length === 0) {
+                container.innerHTML = `
+                    <div class="text-center py-12">
+                        <div class="text-6xl mb-4">📰</div>
+                        <p class="text-gray-500 text-lg">Belum ada berita.</p>
+                        <button onclick="showNewsForm()" class="mt-4 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg">
+                            Tambah Berita Pertama
+                        </button>
+                    </div>
+                `;
+                return;
+            }
+            
+            newsData.forEach(news => {
+                const config = categoryConfig[news.category];
+                const newsElement = document.createElement('div');
+                newsElement.className = 'bg-white p-6 rounded-lg border border-gray-200 hover:shadow-md transition-shadow';
+                
+                const imagePreview = news.image ? 
+                    `<div class="w-20 h-20 rounded-lg overflow-hidden mr-4 flex-shrink-0">
+                        <img src="${news.image}" alt="${news.title}" class="w-full h-full object-cover">
+                    </div>` : '';
+                
+                newsElement.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <div class="flex flex-1">
+                            ${imagePreview}
+                            <div class="flex-1">
+                                <div class="flex items-center mb-3">
+                                    <span class="text-2xl mr-2">${config.icon}</span>
+                                    <span class="text-sm bg-${config.color}-100 text-${config.color}-800 px-2 py-1 rounded-full">${config.name}</span>
+                                    <span class="text-sm text-gray-500 ml-2">${formatDate(news.date)}</span>
+                                    <span class="text-xs ml-2 px-2 py-1 rounded-full ${news.status === 'published' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'}">
+                                        ${news.status === 'published' ? '📢 Published' : '📝 Draft'}
+                                    </span>
+                                </div>
+                                <h4 class="text-lg font-semibold text-gray-800 mb-2">${news.title}</h4>
+                                <p class="text-gray-600 text-sm leading-relaxed">${news.content.substring(0, 150)}${news.content.length > 150 ? '...' : ''}</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-2 ml-4">
+                            <button onclick="showNewsForm(${news.id})" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-2 rounded text-sm flex items-center gap-1">
+                                <span>✏️</span> Edit
+                            </button>
+                            <button onclick="deleteNews(${news.id})" class="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded text-sm flex items-center gap-1">
+                                <span>🗑️</span> Hapus
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(newsElement);
+            });
+        }
+
+        function loadPublicNews() {
+            const container = document.getElementById('news-container');
+            container.innerHTML = '';
+            
+            const publishedNews = newsData.filter(news => news.status === 'published');
+            
+            if (publishedNews.length === 0) {
+                container.innerHTML = `
+                    <div class="col-span-3 text-center py-12">
+                        <div class="text-6xl mb-4">📰</div>
+                        <p class="text-gray-500 text-lg">Belum ada berita yang dipublikasikan.</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            publishedNews.slice(0, 6).forEach(news => {
+                const config = categoryConfig[news.category];
+                const newsElement = document.createElement('article');
+                newsElement.className = 'bg-white rounded-xl shadow-lg overflow-hidden card-hover cursor-pointer';
+                newsElement.onclick = () => showNewsDetail(news.id);
+                
+                const imageHtml = news.image ? 
+                    `<div class="h-48 overflow-hidden">
+                        <img src="${news.image}" alt="${news.title}" class="w-full h-full object-cover">
+                    </div>` :
+                    `<div class="h-48 bg-gradient-to-br from-${config.color}-400 to-${config.color}-600 flex items-center justify-center">
+                        <span class="text-white text-4xl">${config.icon}</span>
+                    </div>`;
+                
+                newsElement.innerHTML = `
+                    ${imageHtml}
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-2">
+                            <span class="text-sm text-${config.color}-600 font-semibold">${config.name}</span>
+                            <span class="text-sm text-gray-500">${formatDate(news.date)}</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-800 mb-3">${news.title}</h3>
+                        <p class="text-gray-600 mb-4 leading-relaxed">${news.content.substring(0, 120)}${news.content.length > 120 ? '...' : ''}</p>
+                        <div class="text-${config.color}-600 font-semibold hover:text-${config.color}-800 transition-colors flex items-center gap-1">
+                            Baca Selengkapnya <span>→</span>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(newsElement);
+            });
+        }
+
+        // News Form Submission
+        document.getElementById('news-form-element').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const id = document.getElementById('news-id').value;
+            const title = document.getElementById('news-title').value.trim();
+            const category = document.getElementById('news-category').value;
+            const content = document.getElementById('news-content').value.trim();
+            const status = document.getElementById('news-status').value;
+            const image = document.getElementById('news-image-data').value;
+            const date = new Date().toISOString().split('T')[0];
+            
+            if (!title || !content) {
+                showNotification('Judul dan konten berita harus diisi!', 'error');
+                return;
+            }
+            
+            if (id) {
+                // Update existing news
+                const index = newsData.findIndex(n => n.id === parseInt(id));
+                newsData[index] = { 
+                    id: parseInt(id), 
+                    title, 
+                    category, 
+                    content, 
+                    status,
+                    image: image || null,
+                    date: newsData[index].date 
+                };
+                showNotification('Berita berhasil diperbarui!', 'success');
+            } else {
+                // Add new news
+                const newId = Math.max(...newsData.map(n => n.id), 0) + 1;
+                newsData.push({ 
+                    id: newId, 
+                    title, 
+                    category, 
+                    content, 
+                    status, 
+                    image: image || null,
+                    date 
+                });
+                showNotification('Berita berhasil ditambahkan!', 'success');
+            }
+            
+            localStorage.setItem('newsData', JSON.stringify(newsData));
+            hideNewsForm();
+            loadAdminNews();
+            loadPublicNews();
+            updateStats();
+        });
+
+        // Messages Management
+        function loadAdminMessages() {
+            const container = document.getElementById('admin-messages-list');
+            container.innerHTML = '';
+            
+            let filteredMessages = messagesData;
+            if (currentMessageFilter === 'unread') {
+                filteredMessages = messagesData.filter(m => !m.read);
+            } else if (currentMessageFilter === 'read') {
+                filteredMessages = messagesData.filter(m => m.read);
+            }
+            
+            if (filteredMessages.length === 0) {
+                const emptyMessage = currentMessageFilter === 'all' ? 'Belum ada pesan masuk.' : 
+                                   currentMessageFilter === 'unread' ? 'Tidak ada pesan yang belum dibaca.' : 
+                                   'Tidak ada pesan yang sudah dibaca.';
+                container.innerHTML = `
+                    <div class="text-center py-12">
+                        <div class="text-6xl mb-4">💬</div>
+                        <p class="text-gray-500 text-lg">${emptyMessage}</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            filteredMessages.sort((a, b) => new Date(b.date) - new Date(a.date)).forEach(message => {
+                const messageElement = document.createElement('div');
+                messageElement.className = `bg-white p-6 rounded-lg border-l-4 ${message.read ? 'border-gray-300' : 'border-blue-500 bg-blue-50'} hover:shadow-md transition-shadow`;
+                messageElement.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <div class="flex-1">
+                            <div class="flex items-center mb-2">
+                                <h4 class="text-lg font-semibold text-gray-800">${message.name}</h4>
+                                ${!message.read ? '<span class="ml-2 bg-blue-500 text-white text-xs px-2 py-1 rounded-full animate-pulse">Baru</span>' : ''}
+                            </div>
+                            <div class="grid md:grid-cols-2 gap-2 mb-3 text-sm text-gray-600">
+                                <p><span class="font-medium">Email:</span> ${message.email}</p>
+                                <p><span class="font-medium">Telepon:</span> ${message.phone || 'Tidak ada'}</p>
+                            </div>
+                            <p class="text-sm text-gray-600 mb-2"><span class="font-medium">Subjek:</span> ${message.subject}</p>
+                            <div class="bg-gray-50 p-3 rounded-lg mb-3">
+                                <p class="text-gray-700 leading-relaxed">${message.message}</p>
+                            </div>
+                            <p class="text-xs text-gray-500 flex items-center gap-1">
+                                <span>🕒</span> ${formatDateTime(message.date)}
+                            </p>
+                        </div>
+                        <div class="flex flex-col gap-2 ml-4">
+                            ${!message.read ? `<button onclick="markAsRead(${message.id})" class="bg-green-500 hover:bg-green-600 text-white px-3 py-2 rounded text-sm flex items-center gap-1">
+                                <span>✅</span> Tandai Dibaca
+                            </button>` : ''}
+                            <button onclick="deleteMessage(${message.id})" class="bg-red-500 hover:bg-red-600 text-white px-3 py-2 rounded text-sm flex items-center gap-1">
+                                <span>🗑️</span> Hapus
+                            </button>
+                        </div>
+                    </div>
+                `;
+                container.appendChild(messageElement);
+            });
+        }
+
+        function filterMessages(filter) {
+            currentMessageFilter = filter;
+            
+            // Update filter buttons
+            document.querySelectorAll('.message-filter-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-blue-100', 'text-blue-800');
+                btn.classList.add('bg-gray-100', 'text-gray-800');
+            });
+            
+            event.target.classList.add('active', 'bg-blue-100', 'text-blue-800');
+            event.target.classList.remove('bg-gray-100', 'text-gray-800');
+            
+            loadAdminMessages();
+        }
+
+        function markAsRead(messageId) {
+            const message = messagesData.find(m => m.id === messageId);
+            if (message) {
+                message.read = true;
+                localStorage.setItem('messagesData', JSON.stringify(messagesData));
+                loadAdminMessages();
+                updateMessageBadges();
+                showNotification('Pesan ditandai sebagai dibaca.', 'success');
+            }
+        }
+
+        function markAllAsRead() {
+            if (messagesData.length === 0) {
+                showNotification('Tidak ada pesan untuk ditandai.', 'info');
+                return;
+            }
+            
+            messagesData.forEach(message => message.read = true);
+            localStorage.setItem('messagesData', JSON.stringify(messagesData));
+            loadAdminMessages();
+            updateMessageBadges();
+            updateStats();
+            showNotification('Semua pesan telah ditandai sebagai dibaca.', 'success');
+        }
+
+        function deleteMessage(messageId) {
+            if (confirm('Apakah Anda yakin ingin menghapus pesan ini?')) {
+                messagesData = messagesData.filter(m => m.id !== messageId);
+                localStorage.setItem('messagesData', JSON.stringify(messagesData));
+                loadAdminMessages();
+                updateMessageBadges();
+                updateStats();
+                showNotification('Pesan berhasil dihapus!', 'success');
+            }
+        }
+
+        function clearAllMessages() {
+            if (messagesData.length === 0) {
+                showNotification('Tidak ada pesan untuk dihapus.', 'info');
+                return;
+            }
+            
+            if (confirm('Apakah Anda yakin ingin menghapus semua pesan? Tindakan ini tidak dapat dibatalkan.')) {
+                messagesData = [];
+                localStorage.setItem('messagesData', JSON.stringify(messagesData));
+                loadAdminMessages();
+                updateMessageBadges();
+                updateStats();
+                showNotification('Semua pesan berhasil dihapus!', 'success');
+            }
+        }
+
+        // Contact Form Submission
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('contact-name').value.trim();
+            const email = document.getElementById('contact-email').value.trim();
+            const phone = document.getElementById('contact-phone').value.trim();
+            const subject = document.getElementById('contact-subject').value;
+            const message = document.getElementById('contact-message').value.trim();
+            const date = new Date().toISOString();
+            
+            if (!name || !email || !subject || !message) {
+                showNotification('Mohon lengkapi semua field yang wajib diisi!', 'error');
+                return;
+            }
+            
+            const newId = Math.max(...messagesData.map(m => m.id), 0) + 1;
+            messagesData.push({
+                id: newId,
+                name,
+                email,
+                phone,
+                subject,
+                message,
+                date,
+                read: false
+            });
+            
+            localStorage.setItem('messagesData', JSON.stringify(messagesData));
+            updateMessageBadges();
+            
+            showNotification('Terima kasih! Pesan Anda telah diterima. Tim kami akan segera menghubungi Anda.', 'success');
+            this.reset();
+        });
+
+        // Statistics and Activity
+        function updateStats() {
+            const totalNews = newsData.length;
+            const totalMessages = messagesData.length;
+            const unreadMessages = messagesData.filter(m => !m.read).length;
+            
+            document.getElementById('stats-news').textContent = totalNews;
+            document.getElementById('stats-messages').textContent = totalMessages;
+            document.getElementById('stats-unread').textContent = unreadMessages;
+        }
+
+        function loadRecentActivity() {
+            const container = document.getElementById('recent-activity');
+            const activities = [];
+            
+            // Add recent news
+            newsData.slice(-5).forEach(news => {
+                activities.push({
+                    type: 'news',
+                    title: `Berita "${news.title}" ${news.status === 'published' ? 'dipublikasikan' : 'disimpan sebagai draft'}`,
+                    date: news.date,
+                    icon: '📰'
+                });
+            });
+            
+            // Add recent messages
+            messagesData.slice(-5).forEach(message => {
+                activities.push({
+                    type: 'message',
+                    title: `Pesan baru dari ${message.name}`,
+                    date: message.date,
+                    icon: '💬'
+                });
+            });
+            
+            // Sort by date
+            activities.sort((a, b) => new Date(b.date) - new Date(a.date));
+            
+            if (activities.length === 0) {
+                container.innerHTML = '<p class="text-gray-500 text-center py-8">Belum ada aktivitas.</p>';
+                return;
+            }
+            
+            container.innerHTML = activities.slice(0, 10).map(activity => `
+                <div class="p-4 border-b border-gray-100 last:border-b-0 flex items-center gap-3">
+                    <span class="text-2xl">${activity.icon}</span>
+                    <div class="flex-1">
+                        <p class="text-sm text-gray-800">${activity.title}</p>
+                        <p class="text-xs text-gray-500">${formatDateTime(activity.date)}</p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateMessageBadges() {
+            const unreadCount = messagesData.filter(m => !m.read).length;
+            const badges = [
+                document.getElementById('message-badge'),
+                document.getElementById('admin-message-badge')
+            ];
+            
+            badges.forEach(badge => {
+                if (badge) {
+                    if (unreadCount > 0) {
+                        badge.textContent = unreadCount > 99 ? '99+' : unreadCount;
+                        badge.classList.remove('hidden');
+                    } else {
+                        badge.classList.add('hidden');
+                    }
+                }
+            });
+        }
+
+        // Notification System
+        function showNotification(message, type = 'info') {
+            const notification = document.createElement('div');
+            const colors = {
+                success: 'bg-green-500',
+                error: 'bg-red-500',
+                info: 'bg-blue-500',
+                warning: 'bg-yellow-500'
+            };
+            
+            notification.className = `fixed top-4 right-4 ${colors[type]} text-white px-6 py-3 rounded-lg shadow-lg z-50 transform translate-x-full transition-transform duration-300`;
+            notification.textContent = message;
+            
+            document.body.appendChild(notification);
+            
+            // Show notification
+            setTimeout(() => {
+                notification.classList.remove('translate-x-full');
+            }, 100);
+            
+            // Hide notification
+            setTimeout(() => {
+                notification.classList.add('translate-x-full');
+                setTimeout(() => {
+                    document.body.removeChild(notification);
+                }, 300);
+            }, 3000);
+        }
+
+        // Utility Functions
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('id-ID', options);
+        }
+
+        function formatDateTime(dateString) {
+            const options = { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+            };
+            return new Date(dateString).toLocaleDateString('id-ID', options);
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPublicNews();
+            updateMessageBadges();
+            
+            // Add fade-in animation
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: '0px 0px -50px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('fade-in');
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('section').forEach(section => {
+                observer.observe(section);
+            });
+
+            // Close modals when clicking outside
+            document.getElementById('news-detail-modal').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeNewsDetail();
+                }
+            });
+
+            document.getElementById('admin-login').addEventListener('click', function(e) {
+                if (e.target === this) {
+                    closeAdminLogin();
+                }
+            });
+
+            // Auto-save drafts (optional feature)
+            let autoSaveTimeout;
+            ['news-title', 'news-content'].forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.addEventListener('input', () => {
+                        clearTimeout(autoSaveTimeout);
+                        autoSaveTimeout = setTimeout(() => {
+                            // Auto-save logic could be implemented here
+                        }, 2000);
+                    });
+                }
+            });
+        });
+
+        // Keyboard shortcuts for admin
+        document.addEventListener('keydown', function(e) {
+            if (isLoggedIn && e.ctrlKey) {
+                switch(e.key) {
+                    case 'n':
+                        e.preventDefault();
+                        showNewsForm();
+                        break;
+                    case 's':
+                        e.preventDefault();
+                        if (!document.getElementById('news-form').classList.contains('hidden')) {
+                            document.getElementById('news-form-element').dispatchEvent(new Event('submit'));
+                        }
+                        break;
+                }
+            }
+            
+            // ESC key to close modals
+            if (e.key === 'Escape') {
+                closeNewsDetail();
+                hideAllNewsPage();
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9761a9c2d0f881e9',t:'MTc1NjM2MTYxMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
